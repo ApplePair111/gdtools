@@ -1,0 +1,22 @@
+{
+  "name": "gdtools",
+  "version": "1.0.0",
+  "description": "A toolset for Geometry Dash mobile players without hack clients",
+  "keywords": [
+    "GD",
+    "geometry",
+    "dash",
+    "tool"
+  ],
+  "author": "ApplePair111",
+  "type": "commonjs",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo No tests (yet), sorry!",
+    "api": "node api.js"
+  },
+  "dependencies": {
+    "axios": "^1.20.0",
+    "express": "^5.2.1"
+  }
+}
