@@ -16,7 +16,7 @@ app.post("/api/login", async (req, res) => {
 
     if (!status == 200) {res.status(500).send("GD servers are bad")}
 
-    res.json({ ok: true, accountID: data[0], playerID: data:[1]})
+    res.json({ ok: true, accountID: data[0], playerID: data[1]})
 
 });
 
