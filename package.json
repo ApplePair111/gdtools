@@ -9,7 +9,7 @@
     "tool"
   ],
   "author": "ApplePair111",
-  "type": "commonjs",
+  "type": "module",
   "main": "api.js",
   "scripts": {
     "test": "echo No tests (yet), sorry!",

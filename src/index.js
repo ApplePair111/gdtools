@@ -1,7 +1,7 @@
 // modules
 
-const express = require("express");
-const axios = require("axios");
+import express from "express"
+import axios from "axios"
 
 // setup Express
 
@@ -20,3 +20,4 @@ app.post("/api/login", async (req, res) => {
 
 });
 
+export default app
