@@ -15,9 +15,9 @@ app.post("/api/login", async (req, res) => {
 
     const { data, status } = await axios.post("https://boomlings.com/database/accounts/loginGJAccount.php", new URLSearchParams({ udid: "58121f94-8233-4e50-9095-052a7241b774", userName: req.body.username, gjp2: process.getBuiltinModule('crypto').createHash('sha1').update(req.body.password + 'mI29fmAnxgTs').digest('hex'), secret: "Wmfv3899gc9" }), { headers: { 'User-Agent': false } }) // HUGE ONELINER!
 
-    try {data = data.split(",")} catch {return res.status(500).send("GD servers are bad")}
+    try {data = data.split(",")} catch {console.error("bad data split"); return res.status(500).send("GD servers are bad")}
 
-    if (!status == 200) {return res.status(500).send("GD servers are bad")}
+    if (!status == 200) {console.error("non-200 response"); return res.status(500).send("GD servers are bad")}
 
     return res.json({ ok: true, accountID: data[0], playerID: data[1]})
 
