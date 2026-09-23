@@ -7,12 +7,12 @@ import axios from "axios"
 
 const app = express();
 
-app.use(express.json);
+app.use(express.json());
 
 app.post("/api/login", async (req, res) => {
 
     console.log("Recieved request for login!")
-    
+
     const { data, status } = await axios.post("https://boomlings.com/database/accounts/loginGJAccount.php", new URLSearchParams({ udid: "58121f94-8233-4e50-9095-052a7241b774", userName: req.body.username, gjp2: require('crypto').createHash('sha1').update(req.body.password + 'mI29fmAnxgTs').digest('hex'), secret: "Wmfv3899gc9" }), { headers: { 'User-Agent': false } }) // HUGE ONELINER!
 
     try {data = data.split(",")} catch {res.status(500).send("GD servers are bad")}
@@ -21,6 +21,11 @@ app.post("/api/login", async (req, res) => {
 
     res.json({ ok: true, accountID: data[0], playerID: data[1]})
 
+});
+
+app.post("/api/test", (req, res) => {
+    console.log("Request recieved at /api/test!")
+    res.send("OK")
 });
 
 export default app;
