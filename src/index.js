@@ -19,7 +19,7 @@ app.post("/api/login", async (req, res) => {
 
     console.log(`GD request recieved with status ${status} and data ${data}`)
 
-    try {data = data.split(",")} catch {console.error("bad data split"); return res.status(500).send("GD servers are bad")}
+    try {data = String(data).split(",")} catch {console.error("bad data split"); return res.status(500).send("GD servers are bad")}
 
     if (!status == 200) {console.error("non-200 response"); return res.status(500).send("GD servers are bad")}
 
