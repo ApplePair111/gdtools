@@ -19,11 +19,12 @@ app.post("/api/login", async (req, res) => {
 
     console.log(`GD request recieved with status ${status} and data ${data}. Data type is ${typeof data}`)
 
-    try {data = String(data).split(",")} catch {console.error("bad data split"); return res.status(500).send("GD servers are bad")}
+    let accountID = String(data).split(",")[0]
+    let playerID = String(data).split(",")[1]
 
     if (!status == 200) {console.error("non-200 response"); return res.status(500).send("GD servers are bad")}
 
-    return res.json({ ok: true, accountID: data[0], playerID: data[1]})
+    return res.json({ ok: true, accountID: accountID, playerID: playerID})
 
 });
 
