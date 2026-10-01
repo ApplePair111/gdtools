@@ -19,10 +19,35 @@ app.post("/api/login", async (req, res) => {
 
     console.log(`GD request recieved with status ${status} and data ${data}. Data type is ${typeof data}`)
 
+    if ((Number(data) === NaN) === false && Number(data) < 0) {err = Number(data)}
+
+    switch (err) {
+        case -1:
+            res.status(500).json({ok: false, error: "unknown"})
+            break
+        case -8:
+        case -9:
+        case -11:
+            res.status(401).json({ok: false, error: "bad-credentials"})
+            break
+
+        case -12:
+            res.status(500).json({ok: false, error: "disabled"})
+            break
+
+        case -13:
+            res.status(500).json({ok: false, error: "sid-error"})
+            break
+
+        
+
+    }
+
+
     let accountID = String(data).split(",")[0]
     let playerID = String(data).split(",")[1]
 
-    if (!status == 200) {console.error("non-200 response"); return res.status(500).send("GD servers are bad")}
+    if (!status == 200) {console.error("non-200 response"); return res.status(500).json({ok: false, error: "GDerror"})}
 
     return res.json({ ok: true, accountID: accountID, playerID: playerID})
 
