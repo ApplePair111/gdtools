@@ -1,4 +1,4 @@
-const VERSION = "v0.19dev";
+const VERSION = "v0.191dev";
 
 // modules
 
@@ -24,6 +24,8 @@ app.post("/api/login", async (req, res) => {
 
     if ((Number(data) === NaN) === false && Number(data) < 0) {err = Number(data)}
 
+    if (typeof err === "number") {
+
     switch (err) {
         case -1:
             res.status(500).json({ok: false, error: "unknown"})
@@ -40,11 +42,7 @@ app.post("/api/login", async (req, res) => {
 
         case -13:
             res.status(500).json({ok: false, error: "sid-error"})
-            break
-
-        
-
-    }
+            break}}
 
 
     let accountID = String(data).split(",")[0]
