@@ -1,9 +1,12 @@
+const VERSION = "v0.19dev";
+
 // modules
 
 import express from "express"
 import axios from "axios"
 
 // setup Express
+
 
 const app = express();
 
@@ -57,5 +60,10 @@ app.post("/api/test", (req, res) => {
     console.log("Request recieved at /api/test!")
     res.send("OK")
 });
+
+app.get("/api/version", (req, res) => {
+    res.send(VERSION)
+})
+
 
 export default app;
