@@ -20,7 +20,10 @@ app.post("/api/login", async (req, res) => {
 
     //const { data, status } = await axios.post("http://localhost:3001", new URLSearchParams({ udid: "58121f94-8233-4e50-9095-052a7241b774", userName: req.body.username, gjp2: process.getBuiltinModule('crypto').createHash('sha1').update(req.body.password + 'mI29fmAnxgTs').digest('hex'), secret: "Wmfv3899gc9" }), { headers: { 'User-Agent': false } }) // HUGE ONELINER!
 
+    
     console.log(`GD request recieved with status ${status} and data ${data}. Data type is ${typeof data}`)
+
+    let err = null;
 
     if ((Number(data) === NaN) === false && Number(data) < 0) {err = Number(data)}
 
