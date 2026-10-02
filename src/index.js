@@ -1,4 +1,4 @@
-const VERSION = "v0.191dev";
+const VERSION = "v0.2dev";
 
 // modules
 
@@ -12,6 +12,27 @@ const app = express();
 
 app.use(express.json());
 
+
+// XOR cipher
+
+function xorCipher(input, key) {
+  let result = "";
+  for (let i = 0; i < input.length; i++) {
+    const byte = input.charCodeAt(i) & 0xFF;
+    const xKey = key.charCodeAt(i % key.length) & 0xFF;
+    result += String.fromCharCode(byte ^ xKey);
+  }
+  return result;
+}
+
+
+
+function levelParse(str) {
+  const [a, h1, h2] = str.split("#");
+  const lvl = a.split(":").filter((_, i) => i % 2 === 1);
+  return lvl;
+}
+
 app.post("/api/login", async (req, res) => {
 
     console.log("Recieved request for login!")
@@ -21,7 +42,7 @@ app.post("/api/login", async (req, res) => {
     //const { data, status } = await axios.post("http://localhost:3001", new URLSearchParams({ udid: "58121f94-8233-4e50-9095-052a7241b774", userName: req.body.username, gjp2: process.getBuiltinModule('crypto').createHash('sha1').update(req.body.password + 'mI29fmAnxgTs').digest('hex'), secret: "Wmfv3899gc9" }), { headers: { 'User-Agent': false } }) // HUGE ONELINER!
 
     
-    console.log(`GD request recieved with status ${status} and data ${data}. Data type is ${typeof data}`)
+    //console.log(`GD request recieved with status ${status} and data ${data}. Data type is ${typeof data}`)
 
     let err = null;
 
@@ -40,7 +61,7 @@ app.post("/api/login", async (req, res) => {
             break
 
         case -12:
-            res.status(500).json({ok: false, error: "disabled"})
+            res.status(403).json({ok: false, error: "disabled"})
             break
 
         case -13:
@@ -65,6 +86,15 @@ app.post("/api/test", (req, res) => {
 app.get("/api/version", (req, res) => {
     res.send(VERSION)
 })
+
+
+app.post("/api/levelpass", async (req, res) => {
+
+    if (typeof req.body.levelID === undefined) {return res.status(400).json({ ok: false, error: "no levelID" })}
+
+    const { data } = await axios.post("https://boomlings.com/database/downloadGJLevel22.php", new URLSearchParams({ levelID: req.body.levelID, secret: "Wmfd2893gb7" }))
+
+});
 
 
 export default app;
